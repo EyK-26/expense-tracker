@@ -8,7 +8,7 @@ class TransactionManager {
     this.moneyMinus = document.getElementById("money-minus");
     this.form = document.getElementById("form");
     this.form.addEventListener("submit", this.handleSubmit.bind(this));
-    this.loadFromLocalStorage(); // Load data from local storage during initialization
+    this.loadFromLocalStorage();
     this.init();
   }
 
@@ -39,13 +39,13 @@ class TransactionManager {
 
     this.transactions.push(newTransaction);
     this.updateUI();
-    this.saveToLocalStorage(); // Save data to local storage after adding a new transaction
+    this.saveToLocalStorage();
   }
 
   removeTransaction(id) {
     this.transactions = this.transactions.filter((el) => el.id !== id);
     this.updateUI();
-    this.saveToLocalStorage(); // Save data to local storage after removing a transaction
+    this.saveToLocalStorage();
   }
 
   updateUI() {
