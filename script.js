@@ -8,6 +8,7 @@ class TransactionManager {
     this.moneyMinus = document.getElementById("money-minus");
     this.form = document.getElementById("form");
     this.form.addEventListener("submit", this.handleSubmit.bind(this));
+    this.loadFromLocalStorage(); // Load data from local storage during initialization
     this.init();
   }
 
@@ -38,11 +39,13 @@ class TransactionManager {
 
     this.transactions.push(newTransaction);
     this.updateUI();
+    this.saveToLocalStorage(); // Save data to local storage after adding a new transaction
   }
 
   removeTransaction(id) {
     this.transactions = this.transactions.filter((el) => el.id !== id);
     this.updateUI();
+    this.saveToLocalStorage(); // Save data to local storage after removing a transaction
   }
 
   updateUI() {
@@ -60,9 +63,7 @@ class TransactionManager {
       ${transaction.text} <span>${sign} $${Math.abs(transaction.amount).toFixed(
       2
     )}</span>
-      <button class="delete-btn" onclick="app.removeTransaction(${
-        transaction.id
-      })">
+      <button class="delete-btn" onclick="removeTransaction(${transaction.id})">
         X
       </button>`;
     this.list.appendChild(item);
@@ -81,6 +82,17 @@ class TransactionManager {
     this.balanceFigure.textContent = `$${balance.toFixed(2)}`;
     this.moneyPlus.textContent = `+$${income.toFixed(2)}`;
     this.moneyMinus.textContent = `-$${Math.abs(expense).toFixed(2)}`;
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem("transactions", JSON.stringify(this.transactions));
+  }
+
+  loadFromLocalStorage() {
+    const savedTransactions = localStorage.getItem("transactions");
+    if (savedTransactions) {
+      this.transactions = JSON.parse(savedTransactions);
+    }
   }
 }
 
