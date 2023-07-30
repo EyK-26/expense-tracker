@@ -63,7 +63,9 @@ class TransactionManager {
       ${transaction.text} <span>${sign} $${Math.abs(transaction.amount).toFixed(
       2
     )}</span>
-      <button class="delete-btn" onclick="removeTransaction(${transaction.id})">
+      <button class="delete-btn" onclick="app.removeTransaction(${
+        transaction.id
+      })">
         X
       </button>`;
     this.list.appendChild(item);
